@@ -1,0 +1,121 @@
+<div class="container">
+  <div class="row">
+    <div class="col" style=" text-align: center;">
+      <h1>Hola Mundo</h1>
+      <div>
+        <p>hola</p>
+        <p>{{usuario.nombre}}</p>
+        <p>{{usuario.email}}</p>
+        <p>{{usuario.password}}</p>
+
+        
+        
+        
+        
+
+
+
+
+      </div>
+     
+
+    </div>
+    <div class="col"
+      style="height: 200%; text-align: center; border-left-width: 5px; border-left-style: solid; border-left-color: black;">
+
+      <h1>Hola Mundo</h1>
+
+      <div class="row">
+        <div class="col text-right">
+          <button class="btn btn-primary" (click)="f.reset({})" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-plus"></i>
+            Agregar
+          </button>
+        </div>
+      </div>
+      <div>
+      <table class="table" style="width: 50px; margin-left: 10%; margin-top: 20%;">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Tools</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.email}}</td>
+            <td>{{usuario.role}}</td>
+            <td>
+              <button class="btn btn-danger" (click)="borrarHospital( usuario, i ) ">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Añadir Usuario</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form (ngSubmit)="guardar( f )" #f="ngForm">
+
+                <div class="form-group">
+                  <label>ID</label>
+                  <input type="text" class="form-control" placeholder="ID" [(ngModel)]="usuario._id" name="id"
+                    disabled="disabled">
+                  <small class="form-text text-muted">Este campo es autogenerado</small>
+                </div>
+                <div class="form-group">
+                  <label>Nombre</label>
+                  <input type="text" class="form-control" placeholder="" [(ngModel)]="usuario.nombre"
+                    name="nombre" required >
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="text" class="form-control" placeholder="" [(ngModel)]="usuario.email"
+                    name="email" required >
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="text" class="form-control" placeholder="Password" [(ngModel)]="usuario.password"
+                    name="password" required  disabled="disabled">
+                    <small class="form-text text-muted">Este campo es autogenerado</small>
+                </div>
+                <div class="input-group form-group mb-3">
+                  <select class="custom-select" id="hola" required >
+                    <option value="USER_ROLE" selected>USER_ROLE</option>
+                    <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                  </select>
+                </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" type="submit">Save changes</button>
+            </div>
+
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>

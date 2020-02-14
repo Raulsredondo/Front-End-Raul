@@ -1,0 +1,97 @@
+<nav class="navbar navbar-light navbar-expand-lg " style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="#">Medicos</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link"  routerLink="/medicos">medicos<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"routerLink="/hospitales">hospitales</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" (click)="logout()">Log Out</button>
+    </form>
+  </div>
+</nav>
+
+
+
+<h1>Listado de Medicos</h1>
+<hr>
+<button (click)="hola()">hola</button>
+
+
+<div class="row">
+  <div class="col text-right">
+    <button class="btn btn-primary" routerLink="/medico/nuevo">
+      <i class="fa fa-plus"></i>
+      Agregar
+    </button>
+  </div>
+</div>
+
+  <div class="form-group" style="width: 30%;">
+    <input type="text" class="form-control" name="filterPost" id=""  placeholder="Search.." [(ngModel)]="filterPost">
+  </div>
+
+
+<table class="table mt-3 animated fadeIn faster animated fadeIn faster" id="datos">
+  <thead class="thead-dark">
+    <tr>
+
+      <th scope="col">Nombre</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Email</th>
+      <th scope="col">tools</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let medico of medicos | filter: filterPost | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+ 
+      <td>{{ medico.nombre }}</td>
+      <td>{{ medico.usuarioEma }}</td>
+      <td>{{ medico.hospitalNom }}</td>
+
+      <td>
+
+        <button class="btn btn-info mr-1" [routerLink]="['/medico', medico._id ]">
+          <i class="fa fa-pen"></i>
+        </button>
+
+        <button class="btn btn-danger" (click)="borrarHospital( medico, i ) ">
+          <i class="fa fa-trash"></i>
+        </button>
+
+        <button class="btn btn-info" (click)="info( medico ) ">
+          <i class="fa fa-info"></i>
+        </button>
+
+
+      </td>
+    </tr>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </tbody>
+</table>
+
+<div *ngIf="!cargando && medicos.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2x"></i>
+  </p>
+</div>
+
+<div *ngIf="cargando" class="alert alert-info text-center mt-3 animated fadeIn faster">
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+  </p>
+  <p class="mb-0">
+    Espere por favor
+  </p>
+</div>

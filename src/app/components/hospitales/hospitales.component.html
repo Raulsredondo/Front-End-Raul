@@ -1,0 +1,98 @@
+<nav class="navbar navbar-light navbar-expand-lg " style="background-color: #e3f2fd;">
+   <h1 class="btn-outline-success" ><i class="far fa-hospital"></i></h1>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link"  routerLink="/medicos">medicos<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"routerLink="/hospitales">hospitales</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <div style="margin-right: 5px;"><button routerLink="/usuario" class="btn btn-outline-success my-2 my-sm-0"><i class="fas fa-user"></i></button></div>
+      <div ><button class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" (click)="logout()">Log Out</button></div>
+      
+      
+    </form>
+  </div>
+</nav>
+<h1>Listado de Hospitales</h1>
+<hr>
+
+
+<div class="row">
+  <div class="col text-right">
+    <button class="btn btn-success" routerLink="/hospital/nuevo">
+      <i class="fa fa-plus"></i>
+      Agregar
+    </button>
+  </div>
+</div>
+
+  <div class="form-group" style="width: 30%;">
+    <input type="text" class="form-control" name="filterPost" id=""  placeholder="Search.." [(ngModel)]="filterPost">
+  </div>
+
+
+<table class="table mt-3 animated fadeIn faster animated fadeIn faster" id="datos">
+  <thead class="thead-dark">
+    <tr>
+
+      <th scope="col">Nombre</th>
+      <th scope="col">img</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Email</th>
+      <th scope="col">tools</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let hospital of hospitales | filter: filterPost | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+ 
+      <td>{{ hospital.nombre }}</td>
+      <td>{{ prueba }} <img src="{{ prueba }}" alt="" > </td>
+      <td>{{ hospital.usuNom }}</td>
+      <td>{{ hospital.usuEma }}</td>
+
+      <td>
+
+        <button style="margin-left: 5px;" class="btn btn-info mr-1" [routerLink]="['/hospital', hospital._id ]">
+          <i class="fa fa-pen"></i>
+        </button>
+
+        <button style="margin-left: 5px;" class="btn btn-danger" (click)="borrarHospital( hospital, i ) ">
+          <i class="fa fa-trash"></i>
+        </button>
+
+        <button style="margin-left: 10px;" class="btn btn-success" (click)="info( hospital ) ">
+          <i class="fa fa-info"></i>
+        </button>
+
+
+      </td>
+    </tr>
+    <pagination-controls  (pageChange)="p = $event"></pagination-controls>
+  </tbody>
+</table>
+
+<div *ngIf="!cargando && hospitales.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2x"></i>
+  </p>
+</div>
+
+<div *ngIf="cargando" class="alert alert-info text-center mt-3 animated fadeIn faster">
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+  </p>
+  <p class="mb-0">
+    Espere por favor
+  </p>
+</div>

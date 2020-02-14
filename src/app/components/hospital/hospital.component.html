@@ -1,0 +1,126 @@
+<nav class="navbar navbar-light navbar-expand-lg " style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="#">Hospitales</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" routerLink="/medicos">medicos<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/hospitales">hospitales</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" (click)="logout()">Log Out</button>
+    </form>
+  </div>
+</nav>
+
+<h1>Hospital <small>Nombre del Hospital</small> </h1>
+<hr>
+
+
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="/hospitales">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+
+<button (click)="hola()">hola</button>
+
+<div class="row animated fadeIn faster">
+  <div class="col">
+
+    <form (ngSubmit)="guardar( f )" #f="ngForm">
+
+      <div class="form-group">
+        <label>ID</label>
+        <input type="text" class="form-control" placeholder="ID" [(ngModel)]="hospital._id" name="id"
+          disabled="disabled">
+        <small class="form-text text-muted">Este campo es autogenerado</small>
+      </div>
+
+
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" placeholder="Nombre del Hospital" [(ngModel)]="hospital.nombre"
+          name="nombre" required>
+      </div>
+      <div class="form-group">
+        <label>Usuario</label>
+        <input type="text" class="form-control" placeholder="{{usu}}" [(ngModel)]="hospital.usuario" name="usuario"
+          disabled="disabled">
+        <small class="form-text text-muted">Este campo es autocompletado</small>
+      </div>
+
+      <div class="form-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="inputGroupFile01" [(ngModel)]="hospital.img" name="img">
+          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+
+      </div>
+
+      <div>
+        <img src="{{hospital.img}} && " alt="" style="width: 50%; height: 50%;">
+      </div>
+
+
+      <hr>
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+
+
+    </form>
+
+    <form (ngSubmit)="guardarimg( f )" #f="ngForm">
+
+
+    <div class="form-group">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="img" name="img" [(ngModel)]="hospital.img">
+        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+      </div>
+      <button (click)="subir()">Subir img</button>
+
+    </div>
+
+
+
+
+      <hr>
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Subir
+        </button>
+      </div>
+
+
+
+    </form>
+
+
+
+
+
+
+    <div>
+      <img src="{{hospital.img}}" alt="" style="width: 50%; height: 50%;">
+    </div>
+
+
+  </div>
+</div>
