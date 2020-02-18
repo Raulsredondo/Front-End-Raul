@@ -7,7 +7,7 @@ import { UsuarioService } from '../../services/usuario/usuario.service';
 import { MedicosModel } from '../../models/medicoo';
 import { MedicosService } from '../../services/medico/medicos.service'
 import { map, delay } from 'rxjs/operators';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { from } from 'rxjs';
 import { LoginService } from '../../services/login/login.service';
 
@@ -46,9 +46,13 @@ export class MedicosComponent implements OnInit {
         );
         this.hospitalesService.getHospital(medico.hospital).subscribe(
           (hospital: HospitalesModel) => {
+            if (hospital === undefined) {
+              medico.hospitalNom = 'tuputamadre'
+            } else {
+              medico.hospitalNom = hospital.nombre
+              this.medicos = medicos
+            }
 
-            medico.hospitalNom = hospital.nombre
-            this.medicos = medicos
 
           });
 
@@ -84,7 +88,7 @@ export class MedicosComponent implements OnInit {
 
 
 
-  borrarHeroe(medico: HospitalesModel, i: number) {
+  borrarMedico(medico: HospitalesModel, i: number) {
 
     Swal.fire({
       title: '¿Está seguro?',
@@ -95,7 +99,7 @@ export class MedicosComponent implements OnInit {
 
       if (resp.value) {
         this.medicos.splice(i, 1);
-        this.hospitalesService.deleteHospitales(medico._id);
+        this.medicoService.deleteMedicos(medico._id).subscribe();
       }
 
     });

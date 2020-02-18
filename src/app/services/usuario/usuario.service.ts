@@ -6,11 +6,15 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Key } from 'protractor';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
  
+
+
+
 
   usuario: UsuarioModel;
   readonly URL_API = 'http://localhost:3000/usuario';
@@ -22,13 +26,14 @@ export class UsuarioService {
       'Access-Control-Allow-Origin': '*'
     })
   };
+  prueba:string = sessionStorage.getItem('access_token');
 
   constructor(private http: HttpClient) {
 
   }
 
   postUsuarios(usuarios: UsuarioModel) {
-    return this.http.post(this.URL_API, usuarios);
+    return this.http.post(this.URL_API+'?token='+this.prueba, usuarios);
   }
     
     
@@ -47,11 +52,11 @@ export class UsuarioService {
   }
 
   putUsuarios(usuarios: UsuarioModel) {
-    return this.http.put(this.URL_API + `/${usuarios._id}`, usuarios);
+    return this.http.put(this.URL_API + `/${usuarios._id}`+'?token='+this.prueba, usuarios);
   }
 
   deleteUsuarios(id: string) {
-    return this.http.delete(this.URL_API + `/${id}`);
+    return this.http.delete(this.URL_API + `/${id}`+'?token='+this.prueba,);
   }
 
 

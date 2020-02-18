@@ -1,64 +1,185 @@
-<div class="container">
+<nav class="navbar navbar-light navbar-expand-lg " style="background-color: #e3f2fd;">
+  <h1 class="btn-outline-success"><i class="far fa-hospital"></i></h1>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" routerLink="/medicos">medicos<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/hospitales">hospitales</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+
+      <div><button class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" (click)="logout()">Log Out</button>
+      </div>
+
+
+    </form>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container" >
   <div class="row">
-    <div class="col" style=" text-align: center;">
-      <h1>Hola Mundo</h1>
+    <div class="col" style=" text-align: left;">
       <div>
-        <p>hola</p>
-        <p>{{usuario.nombre}}</p>
-        <p>{{usuario.email}}</p>
-        <p>{{usuario.password}}</p>
+        <div style="margin-top: 5%; margin-left: 10px;" class="row">
 
-        
-        
-        
-        
+          <button  class="btn btn-success" data-toggle="modal" data-target="#exampleModalEdit">
+            Edita Tu Usuario
+          </button>
+        </div>
+
+        <div style="margin-top: 5%; margin-left: 18px;">
+          <div class="row" style="border-bottom-width: 1px; border-bottom-color: black;">
+
+            <h1 style="color: #28a745; margin-right: 25px;"><i class="fas fa-user-md" ></i></h1>
+            <p style="margin-top: 15px;" id="1" contenteditable="false">Usuario: {{usuario2.nombre}}</p>
+
+          </div>
+          <div class="row">
+
+            
+            <h1 style="color: #28a745; margin-right: 25px;"><i class="fas fa-at"></i></h1>
+            <p style="margin-top: 15px;"id="2" contenteditable="false">Email:  {{usuario2.email}}</p>
+          </div>
+          <div class="row">
+
+            
+
+            <h1 style="color:#28a745; margin-right: 25px;"><i class="fas fa-key"></i></h1>
+            <p style="margin-top: 15px;" type="password" id="3" contenteditable="false">Password:  *******</p>
+          </div>
 
 
-
+        </div>
 
       </div>
-     
-
     </div>
-    <div class="col"
-      style="height: 200%; text-align: center; border-left-width: 5px; border-left-style: solid; border-left-color: black;">
 
-      <h1>Hola Mundo</h1>
 
-      <div class="row">
-        <div class="col text-right">
-          <button class="btn btn-primary" (click)="f.reset({})" data-toggle="modal" data-target="#exampleModal">
+    <div class="modal fade" id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Añadir Usuario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-left">
+            <form (ngSubmit)="guardarEDIT( f )" #f="ngForm">
+
+              <div class="form-group">
+                <label>ID</label>
+                <input type="text" class="form-control" placeholder="ID" [(ngModel)]="usuario2._id" name="id"
+                  disabled="disabled">
+                <small class="form-text text-muted">Este campo es autogenerado</small>
+              </div>
+              <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" class="form-control" placeholder="" [(ngModel)]="usuario2.nombre" name="nombre"
+                  required>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" placeholder="" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" [(ngModel)]="usuario2.email" name="email"
+                  required>
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" required minlength="6" placeholder="Password" [(ngModel)]="usuario2.password"
+                  name="password" required><small class="form-text text-muted">6 caracteres minimo</small>
+
+              </div>
+              <div class="input-group form-group mb-3">
+                <select class="custom-select" id="hola" [(ngModel)]="dos" [ngModelOptions]="{standalone: true}"
+                  required>
+                  <option value="USER_ROLE">USER_ROLE</option>
+                  <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" type="submit">Save changes</button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div *ngIf="tu" style=" box-shadow: 0 0 2px 2px rgb(37, 37, 37);"></div>
+
+
+
+
+    <div *ngIf="tu" class="col" style="height: 200%; text-align: center; ">
+
+      <div style="margin-right: 15px;">
+        <div class="text-right" style="margin-top: 10%;">
+          <button class="btn btn-success" (click)="f.reset({})" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fa-plus"></i>
             Agregar
           </button>
         </div>
+        <table class="table" style="width: 50px; margin-left: 8%; margin-top: 5%; margin-right: 15px;">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Tools</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuarios; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{usuario.nombre}}</td>
+              <td>{{usuario.email}}</td>
+              <td>{{usuario.role}}</td>
+              <td>
+                <button class="btn btn-danger" (click)="borrarUsuario( usuario, i ) ">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div>
-      <table class="table" style="width: 50px; margin-left: 10%; margin-top: 20%;">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th scope="col">Tools</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let usuario of usuarios; let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{usuario.nombre}}</td>
-            <td>{{usuario.email}}</td>
-            <td>{{usuario.role}}</td>
-            <td>
-              <button class="btn btn-danger" (click)="borrarHospital( usuario, i ) ">
-                <i class="fa fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-</div>
+
+
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -70,8 +191,8 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <form (ngSubmit)="guardar( f )" #f="ngForm">
+            <div class="modal-body text-left">
+              <form (ngSubmit)="guardarADD( f )" #f="ngForm">
 
                 <div class="form-group">
                   <label>ID</label>
@@ -81,30 +202,33 @@
                 </div>
                 <div class="form-group">
                   <label>Nombre</label>
-                  <input type="text" class="form-control" placeholder="" [(ngModel)]="usuario.nombre"
-                    name="nombre" required >
+                  <input type="text" class="form-control" placeholder="" [(ngModel)]="usuario.nombre" name="nombre"
+                    required>
                 </div>
                 <div class="form-group">
                   <label>Email</label>
-                  <input type="text" class="form-control" placeholder="" [(ngModel)]="usuario.email"
-                    name="email" required >
+                  <input type="email" class="form-control" placeholder="" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"  [(ngModel)]="usuario.email" name="email"
+                    required>
+                    
                 </div>
                 <div class="form-group">
                   <label>Password</label>
-                  <input type="text" class="form-control" placeholder="Password" [(ngModel)]="usuario.password"
-                    name="password" required  disabled="disabled">
-                    <small class="form-text text-muted">Este campo es autogenerado</small>
+                  <input type="password" class="form-control"  placeholder="Password" [(ngModel)]="usuario.password"
+                    name="password" required minlength="6" required><small class="form-text text-muted">6 caracteres minimo</small>
+                    
+
                 </div>
                 <div class="input-group form-group mb-3">
-                  <select class="custom-select" id="hola" required >
-                    <option value="USER_ROLE" selected>USER_ROLE</option>
+                  <select class="custom-select" id="hola" [(ngModel)]="uno" [ngModelOptions]="{standalone: true}"
+                    required>
+                    <option value="USER_ROLE">USER_ROLE</option>
                     <option value="ADMIN_ROLE">ADMIN_ROLE</option>
                   </select>
                 </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" type="submit">Save changes</button>
-            </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" (click)="tabla()" class="btn btn-success" type="submit" >Save changes</button>
+                </div>
 
               </form>
             </div>
@@ -112,8 +236,6 @@
           </div>
         </div>
       </div>
-
-
 
 
     </div>

@@ -8,6 +8,7 @@ import { map, delay } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { LoginService } from '../../services/login/login.service';
 import { ImagenesService } from '../../services/imagenes/imagenes.service';
+import { error } from 'util';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class HospitalesComponent implements OnInit {
 
   hospitales: HospitalesModel[];
   hospital: HospitalesModel;
+
   usuario: UsuarioModel;
   cargando = false;
   filterPost = '';
@@ -34,6 +36,7 @@ export class HospitalesComponent implements OnInit {
 
   ngOnInit() {
 
+
     this.img.getImagen("hospitales", '5e3c0a1d1b22d738ec3921ed-492.png').subscribe(res => {
       console.log(res)
       this.prueba = res
@@ -46,15 +49,24 @@ export class HospitalesComponent implements OnInit {
           hospital = resp;
           console.log(resp._id)
 
+      
           this.usuarioService.getUsuario(hospital.usuario).subscribe(
             (resp: UsuarioModel) => {
+              console.log(resp)
+         
               this.usuario = resp;
            
               hospital.usuNom = resp.nombre
               hospital.usuEma = resp.email
               this.hospitales = hospitales
             }
-          );
+          )
+
+          if (hospital.usuNom === '') {
+console.log('holaknflknclknwlkc')
+          } else {
+            
+          }
 
         })
 

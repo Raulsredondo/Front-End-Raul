@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HospitalComponent } from './components/hospital/hospital.component';
@@ -17,6 +17,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
+
+
 import { LoginService } from './services/login/login.service';
 import { NvarComponent } from './components/nvar/nvar.component';
 import { FilterPipe } from './pipes/filter.pipe';
@@ -26,6 +28,9 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
+
+
+ 
 
 @NgModule({
   declarations: [
@@ -45,6 +50,7 @@ export function tokenGetter() {
     FormsModule,
     HttpClientModule,
     SweetAlert2Module,
+    ReactiveFormsModule,
     NgxPaginationModule,
     JwtModule.forRoot({
       config: {

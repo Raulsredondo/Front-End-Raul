@@ -3,12 +3,23 @@ import { LoginService } from '../../services/login/login.service';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import sha256 from 'crypto-js/sha256';
+
+
+
+
+
+
+
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
+
+
   public username: string;
   public password: string;
   public error: string;
@@ -16,31 +27,38 @@ export class LoginComponent {
   constructor(private auth: LoginService, private router: Router) { }
 
 
+
+
+
+
+
+
   public submit() {
-    this.auth.login(this.username, this.password)
+    this.auth.login(this.username, sha256(this.password).toString())
       .pipe(first())
       .subscribe(
         result => {
-          if(result == true){
+          if (result == true) {
             this.router.navigate(['hospitales'])
           }
-          
+
         },
-        err => {this.error = 'Email o Password incorrectos'
+        err => {
+        this.error = 'Email o Password incorrectos'
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: this.error,
           })
-          
+
         }
-        
+
       );
   }
-  logout(){
+  logout() {
     this.auth.logout();
   }
-  hola(){
+  hola() {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
