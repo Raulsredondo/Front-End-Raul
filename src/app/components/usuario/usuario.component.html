@@ -16,7 +16,11 @@
     </ul>
     <form class="form-inline my-2 my-lg-0">
 
-      <div><button class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" (click)="logout()">Log Out</button>
+      <img src="{{usuario2.img}}" width="50" height="65" style="border-radius: 150px;" class="img-fluid"
+        alt="Responsive image">
+
+      <div style="margin-left: 5px;"><button class="btn btn-outline-success my-2 my-sm-0" routerLink="/login"
+          (click)="logout()">Log Out</button>
       </div>
 
 
@@ -34,36 +38,45 @@
 
 
 
-<div class="container" >
+<div class="container">
   <div class="row">
     <div class="col" style=" text-align: left;">
       <div>
-        <div style="margin-top: 5%; margin-left: 10px;" class="row">
+        <div class="row">
+          <div>
+            <img src="{{usuario2.img}}" width="150" height="65" style="margin-top: 40px;" class="img-fluid"
+              alt="Responsive image">
+          </div>
 
-          <button  class="btn btn-success" data-toggle="modal" data-target="#exampleModalEdit">
-            Edita Tu Usuario
-          </button>
+          <div style="margin-top: 5%; margin-left: 10px;" class="row">
+
+            <button class="btn btn-success" style="height: 40px; margin-top: 100px; margin-left: 20px;"
+              data-toggle="modal" data-target="#exampleModalEdit">
+              Edita Tu Usuario
+            </button>
+          </div>
         </div>
+
 
         <div style="margin-top: 5%; margin-left: 18px;">
           <div class="row" style="border-bottom-width: 1px; border-bottom-color: black;">
 
-            <h1 style="color: #28a745; margin-right: 25px;"><i class="fas fa-user-md" ></i></h1>
+            <h1 style="color: #28a745; margin-right: 25px;"><i class="fas fa-user-md"></i></h1>
             <p style="margin-top: 15px;" id="1" contenteditable="false">Usuario: {{usuario2.nombre}}</p>
 
           </div>
           <div class="row">
 
-            
+
             <h1 style="color: #28a745; margin-right: 25px;"><i class="fas fa-at"></i></h1>
-            <p style="margin-top: 15px;"id="2" contenteditable="false">Email:  {{usuario2.email}}</p>
+            <p style="margin-top: 15px;" id="2" contenteditable="false">Email: {{usuario2.email}}</p>
           </div>
           <div class="row">
 
-            
+
 
             <h1 style="color:#28a745; margin-right: 25px;"><i class="fas fa-key"></i></h1>
-            <p style="margin-top: 15px;" type="password" id="3" contenteditable="false">Password:  *******</p>
+            <p style="margin-top: 15px;" type="password" id="3" contenteditable="false">Password: *******</p>
           </div>
 
 
@@ -99,13 +112,15 @@
               </div>
               <div class="form-group">
                 <label>Email</label>
-                <input type="email" class="form-control" placeholder="" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" [(ngModel)]="usuario2.email" name="email"
-                  required>
+                <input type="email" class="form-control" placeholder=""
+                  pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                  [(ngModel)]="usuario2.email" name="email" required>
               </div>
               <div class="form-group">
                 <label>Password</label>
-                <input type="password" class="form-control" required minlength="6" placeholder="Password" [(ngModel)]="usuario2.password"
-                  name="password" required><small class="form-text text-muted">6 caracteres minimo</small>
+                <input type="password" class="form-control" required minlength="6" placeholder="Password"
+                  [(ngModel)]="usuario2.password" name="password" required><small class="form-text text-muted">6
+                  caracteres minimo</small>
 
               </div>
               <div class="input-group form-group mb-3">
@@ -115,9 +130,52 @@
                   <option value="ADMIN_ROLE">ADMIN_ROLE</option>
                 </select>
               </div>
+
+
+
+              <form [formGroup]="archivoForm" (ngSubmit)="subirArchivo()">
+                <div class="form-group">
+
+                  <label class="file-label"><label>Imagen de Usuario</label>
+                    <div class="input-group mb-3">
+
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" accept="image/*" id="inputGroupFile01"
+                          aria-describedby="inputGroupFileAddon01" formControlName="archivo"
+                          (change)="cambioArchivo($event)">
+                        <label class="custom-file-label" for="inputGroupFile01">Elige una Imagen</label>
+                      </div>
+                    </div>
+
+                    <img class="imagen" width="200" height="200" id="blah" [src]="imageSrc" style="overflow:hidden;" />
+
+
+                    <span class="file-cta">
+                    </span>
+                  </label>
+                  <hr>
+
+                  <label class="download" *ngIf="finalizado">Imagen Correcta</label>
+
+                  <hr>
+                  <progress *ngIf="porcentaje > 0 && porcentaje < 100" class="progress is-large is-success"
+                    value="{{porcentaje}}" max="100">{{porcentaje}}%</progress>
+                  <button class="btn btn-primary"
+                    [ngClass]="{'button': true, 'is-success': true, 'is-large': true, 'is-loading': porcentaje > 0 && porcentaje < 100}"
+                    [disabled]="!archivoForm.valid">Confirmar Foto</button>
+
+                </div>
+              </form>
+
+
+
+
+
+
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" type="submit">Save changes</button>
+                <button type="button" class="btn btn-success" type="submit">Save changes</button>
               </div>
 
             </form>
@@ -128,7 +186,7 @@
     </div>
 
 
-
+    <img src="{{imagen}}" alt="">
 
 
 
@@ -157,6 +215,7 @@
           <thead>
             <tr>
               <th scope="col">#</th>
+              <th scope="col">img</th>
               <th scope="col">Nombre</th>
               <th scope="col">Email</th>
               <th scope="col">Role</th>
@@ -166,6 +225,7 @@
           <tbody>
             <tr *ngFor="let usuario of usuarios; let i = index">
               <td>{{i + 1}}</td>
+              <td><img src="{{usuario.img}}" width="50" height="65" class="img-fluid" alt="Responsive image"></td>
               <td>{{usuario.nombre}}</td>
               <td>{{usuario.email}}</td>
               <td>{{usuario.role}}</td>
@@ -181,58 +241,100 @@
 
 
       <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Añadir Usuario</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+      <div>
+        <div class="modal" id="exampleModal" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Añadir Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body text-left">
+                <form (ngSubmit)="guardarADD( f )" #f="ngForm">
+
+                  <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" class="form-control" placeholder="ID" [(ngModel)]="usuario._id" name="id"
+                      disabled="disabled">
+                    <small class="form-text text-muted">Este campo es autogenerado</small>
+                  </div>
+                  <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" placeholder="" [(ngModel)]="usuario.nombre" name="nombre"
+                      required>
+                  </div>
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder=""
+                      pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                      [(ngModel)]="usuario.email" name="email" required>
+
+                  </div>
+                  <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Password" [(ngModel)]="usuario.password"
+                      name="password" required minlength="6" required><small class="form-text text-muted">6 caracteres
+                      minimo</small>
+
+
+                  </div>
+                  <div class="input-group form-group mb-3">
+                    <select class="custom-select" id="hola" [(ngModel)]="uno" [ngModelOptions]="{standalone: true}"
+                      required>
+                      <option value="USER_ROLE">USER_ROLE</option>
+                      <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                    </select>
+                  </div>
+
+
+                  <form [formGroup]="archivoForm" (ngSubmit)="subirArchivo()">
+                    <div class="form-group">
+
+                      <label class="file-label"><label>Imagen de Usuario</label>
+                        <div class="input-group mb-3">
+
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" accept="image/*" id="inputGroupFile01"
+                              aria-describedby="inputGroupFileAddon01" formControlName="archivo"
+                              (change)="cambioArchivo($event)">
+                            <label class="custom-file-label" for="inputGroupFile01">Elige una Imagen</label>
+                          </div>
+                        </div>
+
+                        <img class="imagen" width="200" height="200" id="blah" [src]="imageSrc"
+                          style="overflow:hidden;" />
+
+
+                        <span class="file-cta">
+                        </span>
+                      </label>
+                      <hr>
+
+                      <label class="download" *ngIf="finalizado">Imagen Correcta</label>
+
+                      <hr>
+                      <progress *ngIf="porcentaje > 0 && porcentaje < 100" class="progress is-large is-success"
+                        value="{{porcentaje}}" max="100">{{porcentaje}}%</progress>
+                      <button class="btn btn-primary"
+                        [ngClass]="{'button': true, 'is-success': true, 'is-large': true, 'is-loading': porcentaje > 0 && porcentaje < 100}"
+                        [disabled]="!archivoForm.valid">Confirmar Foto</button>
+
+                    </div>
+                  </form>
+
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" (click)="tabla()" class="btn btn-success" type="submit">Save changes</button>
+                  </div>
+
+                </form>
+              </div>
+
             </div>
-            <div class="modal-body text-left">
-              <form (ngSubmit)="guardarADD( f )" #f="ngForm">
-
-                <div class="form-group">
-                  <label>ID</label>
-                  <input type="text" class="form-control" placeholder="ID" [(ngModel)]="usuario._id" name="id"
-                    disabled="disabled">
-                  <small class="form-text text-muted">Este campo es autogenerado</small>
-                </div>
-                <div class="form-group">
-                  <label>Nombre</label>
-                  <input type="text" class="form-control" placeholder="" [(ngModel)]="usuario.nombre" name="nombre"
-                    required>
-                </div>
-                <div class="form-group">
-                  <label>Email</label>
-                  <input type="email" class="form-control" placeholder="" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"  [(ngModel)]="usuario.email" name="email"
-                    required>
-                    
-                </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" class="form-control"  placeholder="Password" [(ngModel)]="usuario.password"
-                    name="password" required minlength="6" required><small class="form-text text-muted">6 caracteres minimo</small>
-                    
-
-                </div>
-                <div class="input-group form-group mb-3">
-                  <select class="custom-select" id="hola" [(ngModel)]="uno" [ngModelOptions]="{standalone: true}"
-                    required>
-                    <option value="USER_ROLE">USER_ROLE</option>
-                    <option value="ADMIN_ROLE">ADMIN_ROLE</option>
-                  </select>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" (click)="tabla()" class="btn btn-success" type="submit" >Save changes</button>
-                </div>
-
-              </form>
-            </div>
-
           </div>
         </div>
       </div>

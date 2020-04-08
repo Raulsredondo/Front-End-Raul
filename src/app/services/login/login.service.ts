@@ -9,7 +9,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<boolean> {
-    return this.http.post<{token: string, id: string, role: string, email: string, nombre: string, password: string}>(this.URL_API, {email: email, password: password})
+    return this.http.post<{token: string, id: string, role: string, email: string, nombre: string, password: string, img: string}>(this.URL_API, {email: email, password: password})
       .pipe(
         map(result => {
           console.log(result)
@@ -19,6 +19,7 @@ export class LoginService {
           sessionStorage.setItem('user_nom', result.nombre);
           sessionStorage.setItem('user_ema', result.email);
           sessionStorage.setItem('user_pass', result.password);
+          sessionStorage.setItem('user_img', result.img);
           return true;
         })
       );

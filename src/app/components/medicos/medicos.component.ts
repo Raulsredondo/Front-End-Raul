@@ -24,12 +24,13 @@ export class MedicosComponent implements OnInit {
   usuario: UsuarioModel;
   filterPost = '';
   cargando = false;
-
+  img: string;
 
 
   constructor(private auth: LoginService, private hospitalesService: HospitalService, private usuarioService: UsuarioService, private medicoService: MedicosService) { }
 
   ngOnInit() {
+    this.img= sessionStorage.getItem('user_img');
     var medico: MedicosModel;
     this.medicoService.getMedicos().subscribe(medicos => {
 

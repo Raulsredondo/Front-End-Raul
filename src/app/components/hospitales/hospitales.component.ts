@@ -20,7 +20,7 @@ export class HospitalesComponent implements OnInit {
 
   hospitales: HospitalesModel[];
   hospital: HospitalesModel;
-
+  img: string;
   usuario: UsuarioModel;
   cargando = false;
   filterPost = '';
@@ -28,7 +28,7 @@ export class HospitalesComponent implements OnInit {
   prueba: Object;
 
 
-  constructor(private img: ImagenesService, private auth: LoginService, private hospitalesService: HospitalService, private usuarioService: UsuarioService) { 
+  constructor(private auth: LoginService, private hospitalesService: HospitalService, private usuarioService: UsuarioService) { 
     for (let i = 1; i <= 100; i++) {
       this.collection.push(`item ${i}`);
     }
@@ -36,11 +36,7 @@ export class HospitalesComponent implements OnInit {
 
   ngOnInit() {
 
-
-    this.img.getImagen("hospitales", '5e3c0a1d1b22d738ec3921ed-492.png').subscribe(res => {
-      console.log(res)
-      this.prueba = res
-    });
+    this.img= sessionStorage.getItem('user_img');
     
     this.hospitalesService.getHospitales().subscribe(
       hospitales =>

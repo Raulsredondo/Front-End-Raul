@@ -14,7 +14,9 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <div style="margin-right: 5px;"><button routerLink="/usuario" class="btn btn-outline-success my-2 my-sm-0"><i class="fas fa-user"></i></button></div>
+      <img src="{{img}}" width="50" height="65" style="border-radius: 150px;" class="img-fluid"
+      alt="Responsive image">
+      <div style="margin-right: 5px; margin-left: 5px;"><button routerLink="/usuario" class="btn btn-outline-success my-2 my-sm-0"><i class="fas fa-user"></i></button></div>
       <div ><button class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" (click)="logout()">Log Out</button></div>
       
       
@@ -55,9 +57,9 @@
     <tr *ngFor="let hospital of hospitales | filter: filterPost | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
  
       <td>{{ hospital.nombre }}</td>
-      <td>{{ prueba }} <img src="{{ prueba }}" alt="" > </td>
+      <td><img src="{{hospital.img}}" class="img-fluid" style="max-width: 70px; max-height: 70px;" alt="Responsive image"></td>
       <td>{{ hospital.usuNom }}</td>
-      <td>{{ hospital.usuEma }}</td>
+      <td>{{ hospital.usuEma }}</td> 
 
       <td>
 

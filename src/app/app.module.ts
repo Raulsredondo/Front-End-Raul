@@ -16,9 +16,12 @@ import { TokenInterceptor } from './auth/Token.interceptor';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { environment } from '../environments/environment';
 
 
-
+import { SubirArchivoService } from './services/subir-archivo/subir-archivo.service';
 import { LoginService } from './services/login/login.service';
 import { NvarComponent } from './components/nvar/nvar.component';
 import { FilterPipe } from './pipes/filter.pipe';
@@ -52,6 +55,8 @@ export function tokenGetter() {
     SweetAlert2Module,
     ReactiveFormsModule,
     NgxPaginationModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -63,6 +68,7 @@ export function tokenGetter() {
   ],
   providers: [
     LoginService,
+    SubirArchivoService,
     AuthGuard,
     {
     provide: HTTP_INTERCEPTORS,
