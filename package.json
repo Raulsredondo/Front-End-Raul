@@ -28,7 +28,7 @@
     "bootstrap": "^4.4.1",
     "crypto-js": "^4.0.0",
     "firebase": "^7.9.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jwt-decode": "^2.2.0",
     "ng-uikit": "^0.1.6",
     "ngx-pagination": "^5.0.0",
